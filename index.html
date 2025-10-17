@@ -3,13 +3,13 @@ import {
   PhoneIcon,
   MailIcon,
   ChevronRightIcon,
-  PlusIcon,
-  TruckIcon,
 } from "@heroicons/react/solid";
+import {
+  PlusIcon as OutlinePlusIcon,
+  TruckIcon as OutlineTruckIcon,
+} from "@heroicons/react/outline";
 
-import { PlusIcon as OutlinePlusIcon, TruckIcon as OutlineTruckIcon } from "@heroicons/react/outline";
-
-// Define TypeScript interfaces
+// TypeScript interfaces
 interface ContactDetail {
   title: string;
   value: string;
@@ -22,7 +22,6 @@ interface DriverAction {
 }
 
 const App: React.FC = () => {
-  // Contact details data
   const contactDetails: ContactDetail[] = [
     {
       title: "Call us",
@@ -36,7 +35,6 @@ const App: React.FC = () => {
     },
   ];
 
-  // Driver actions data
   const driverActions: DriverAction[] = [
     {
       label: "Select your college",
@@ -52,7 +50,6 @@ const App: React.FC = () => {
     },
   ];
 
-  // Click handlers
   const handleContactClick = (type: string) => {
     console.log(`${type} button clicked`);
     alert(`${type} button clicked`);
