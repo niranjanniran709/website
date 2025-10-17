@@ -1,10 +1,29 @@
 import React from "react";
-import { PhoneIcon, MailIcon } from "@heroicons/react/solid";
-import { ChevronRightIcon, PlusIcon, TruckIcon } from "@heroicons/react/outline";
+import {
+  PhoneIcon,
+  MailIcon,
+  ChevronRightIcon,
+  PlusIcon,
+  TruckIcon,
+} from "@heroicons/react/solid";
 
-export default function App() {
-  // Dummy data
-  const contactDetails = [
+import { PlusIcon as OutlinePlusIcon, TruckIcon as OutlineTruckIcon } from "@heroicons/react/outline";
+
+// Define TypeScript interfaces
+interface ContactDetail {
+  title: string;
+  value: string;
+  icon: React.ElementType;
+}
+
+interface DriverAction {
+  label: string;
+  icon: React.ElementType;
+}
+
+const App: React.FC = () => {
+  // Contact details data
+  const contactDetails: ContactDetail[] = [
     {
       title: "Call us",
       value: "1800 202 6162",
@@ -17,22 +36,23 @@ export default function App() {
     },
   ];
 
-  const driverActions = [
+  // Driver actions data
+  const driverActions: DriverAction[] = [
     {
       label: "Select your college",
-      icon: TruckIcon,
+      icon: OutlineTruckIcon,
     },
     {
       label: "Upload your documents",
-      icon: PlusIcon,
+      icon: OutlinePlusIcon,
     },
     {
       label: "Check vehicle availability",
-      icon: TruckIcon,
+      icon: OutlineTruckIcon,
     },
   ];
 
-  // 👉 Button Click Handlers
+  // Click handlers
   const handleContactClick = (type: string) => {
     console.log(`${type} button clicked`);
     alert(`${type} button clicked`);
@@ -54,19 +74,22 @@ export default function App() {
         <div className="mb-10">
           <h2 className="text-xl font-semibold text-gray-700 mb-4">Contact Us</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {contactDetails.map((contact) => (
-              <button
-                key={contact.title}
-                onClick={() => handleContactClick(contact.title)}
-                className="flex items-center p-4 bg-gray-100 rounded-lg hover:bg-gray-200"
-              >
-                <contact.icon className="h-6 w-6 text-gray-600 mr-4" />
-                <div>
-                  <p className="text-sm font-medium text-gray-900">{contact.title}</p>
-                  <p className="text-sm text-gray-600">{contact.value}</p>
-                </div>
-              </button>
-            ))}
+            {contactDetails.map((contact) => {
+              const Icon = contact.icon;
+              return (
+                <button
+                  key={contact.title}
+                  onClick={() => handleContactClick(contact.title)}
+                  className="flex items-center p-4 bg-gray-100 rounded-lg hover:bg-gray-200"
+                >
+                  <Icon className="h-6 w-6 text-gray-600 mr-4" />
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">{contact.title}</p>
+                    <p className="text-sm text-gray-600">{contact.value}</p>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -74,22 +97,27 @@ export default function App() {
         <div>
           <h2 className="text-xl font-semibold text-gray-700 mb-4">Driver Quick Links</h2>
           <div className="space-y-4">
-            {driverActions.map((action) => (
-              <button
-                key={action.label}
-                onClick={() => handleDriverActionClick(action.label)}
-                className="w-full flex items-center justify-between p-4 bg-blue-100 rounded-lg hover:bg-blue-200"
-              >
-                <div className="flex items-center">
-                  <action.icon className="h-6 w-6 text-blue-600 mr-4" />
-                  <span className="text-blue-900 font-medium">{action.label}</span>
-                </div>
-                <ChevronRightIcon className="h-5 w-5 text-blue-500" />
-              </button>
-            ))}
+            {driverActions.map((action) => {
+              const Icon = action.icon;
+              return (
+                <button
+                  key={action.label}
+                  onClick={() => handleDriverActionClick(action.label)}
+                  className="w-full flex items-center justify-between p-4 bg-blue-100 rounded-lg hover:bg-blue-200"
+                >
+                  <div className="flex items-center">
+                    <Icon className="h-6 w-6 text-blue-600 mr-4" />
+                    <span className="text-blue-900 font-medium">{action.label}</span>
+                  </div>
+                  <ChevronRightIcon className="h-5 w-5 text-blue-500" />
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default App;
